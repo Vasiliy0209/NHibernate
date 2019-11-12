@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="MyORMSamp"
+                   namespace="MyORMSamp">
+  <class name="Employee">
+    <id name="ID">
+      <generator class="guid"/>
+    </id>
+    <property name="Name"/>
+    <property name="Age"/>
+    <property name="Email"/>
+    
+    <bag name="Educations" 
+         table="Education"
+         lazy="false"
+         inverse="true"
+         cascade="all-delete-orphan"
+         >
+      <key column="EmployeeID"/>
+      <one-to-many class="Education"></one-to-many>
+    </bag>
+    
+    <bag name="Languages" table="EmployeeLanguages">
+      <key column="EmployeeID"/>
+      <many-to-many class="Language" column="LanguageID"/>
+    </bag>
+  </class>  
+</hibernate-mapping>
+
